@@ -1,6 +1,6 @@
 extends Node2D
 
-var characters = []
+onready var characters = $Characters
 
 func _ready():
 	Globals.battle_arena = self

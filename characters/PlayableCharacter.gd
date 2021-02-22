@@ -12,7 +12,7 @@ func _physics_process(delta):
 	move_input.y = -Input.get_action_strength("move_up") + Input.get_action_strength("move_down")
 	move_input = move_input.normalized()
 	
-	velocity = move_input * move_speed_units * 24
+	velocity = lerp(velocity, move_input * move_speed_units * 24, get_move_weight())
 	
 	velocity = move_and_slide(velocity)
 
@@ -22,3 +22,4 @@ func attack():
 	add_child(attack_area)
 	var mouse = get_global_mouse_position() - global_position
 	attack_area.position = mouse.normalized() * HAND_RADIUS
+	attack_area.set_attacker(self)

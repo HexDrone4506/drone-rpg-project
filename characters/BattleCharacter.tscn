@@ -65,13 +65,16 @@ tracks/1/keys = {
 }
 
 [node name="BattleCharacter" type="KinematicBody2D"]
+collision_layer = 32
 script = ExtResource( 1 )
 
 [node name="StateMachine" parent="." instance=ExtResource( 3 )]
 
 [node name="Body" type="Node2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -5 )
 
 [node name="Timers" type="Node" parent="."]
@@ -81,6 +84,8 @@ wait_time = 0.2
 one_shot = true
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="ImmunityTimer" type="Timer" parent="HitBox"]
@@ -90,6 +95,7 @@ one_shot = true
 anims/damage = SubResource( 1 )
 anims/invulnerability = SubResource( 2 )
 anims/reset = SubResource( 3 )
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_HitBox_area_entered"]
 [connection signal="damaged" from="HitBox" to="." method="_on_HitBox_damaged"]
 [connection signal="immunity_ended" from="HitBox" to="." method="_on_HitBox_immunity_ended"]
 [connection signal="timeout" from="HitBox/ImmunityTimer" to="HitBox" method="_on_ImmunityTimer_timeout"]
