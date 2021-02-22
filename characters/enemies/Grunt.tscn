@@ -73,6 +73,7 @@ tracks/1/keys = {
 
 [node name="Grunt" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
+faction = 1
 
 [node name="StateMachine" parent="." index="0"]
 script = ExtResource( 4 )

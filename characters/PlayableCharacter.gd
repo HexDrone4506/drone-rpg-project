@@ -1,4 +1,4 @@
-extends Character
+extends BattleCharacter
 class_name PlayableCharacter
 
 const HAND_RADIUS := 24

@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Character",
+"base": "BattleCharacter",
 "class": "AI",
 "language": "GDScript",
 "path": "res://characters/AI.gd"
@@ -20,9 +20,9 @@ _global_script_classes=[ {
 "path": "res://attack/AttackArea.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "Character",
+"class": "BattleCharacter",
 "language": "GDScript",
-"path": "res://characters/Character.gd"
+"path": "res://characters/BattleCharacter.gd"
 }, {
 "base": "Area2D",
 "class": "DamageArea",
@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://attack/HitBox.gd"
 }, {
-"base": "Character",
+"base": "BattleCharacter",
 "class": "PlayableCharacter",
 "language": "GDScript",
 "path": "res://characters/PlayableCharacter.gd"
@@ -57,7 +57,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AI": "",
 "AttackArea": "",
-"Character": "",
+"BattleCharacter": "",
 "DamageArea": "",
 "Enemy": "",
 "GruntFSM": "",

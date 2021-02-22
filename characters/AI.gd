@@ -1,4 +1,4 @@
-extends Character
+extends BattleCharacter
 class_name AI
 
 

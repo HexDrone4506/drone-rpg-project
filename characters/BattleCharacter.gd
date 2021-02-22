@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name Character
+class_name BattleCharacter
 
 enum Factions { ALLY, ENEMY }
 
