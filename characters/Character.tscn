@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://characters/Character.gd" type="Script" id=1]
+[ext_resource path="res://attack/HitBox.gd" type="Script" id=2]
+[ext_resource path="res://characters/StateMachine.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "damage"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "invulnerability"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "reset"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Character" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="StateMachine" parent="." instance=ExtResource( 3 )]
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -5 )
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="AttackCooldown" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="ImmunityTimer" type="Timer" parent="HitBox"]
+one_shot = true
+
+[node name="DamageAnimator" type="AnimationPlayer" parent="."]
+anims/damage = SubResource( 1 )
+anims/invulnerability = SubResource( 2 )
+anims/reset = SubResource( 3 )
+[connection signal="damaged" from="HitBox" to="." method="_on_HitBox_damaged"]
+[connection signal="immunity_ended" from="HitBox" to="." method="_on_HitBox_immunity_ended"]
+[connection signal="timeout" from="HitBox/ImmunityTimer" to="HitBox" method="_on_ImmunityTimer_timeout"]
